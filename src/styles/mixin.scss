@@ -1,0 +1,63 @@
+// mixin
+// 清除浮动
+@mixin clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+
+//flex box
+@mixin flexbox($jc: space-between, $ai: center, $fd: row, $fw: nowrap) {
+  display: flex;
+  display: -webkit-flex;
+  flex: 1;
+  justify-content: $jc;
+  align-items: $ai;
+  flex-direction: $fd;
+  flex-wrap: $fw;
+}
+@mixin multi-ellipsis($lines) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+}
+
+@mixin ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 设置文字样式
+ * @include font(#aaa 700 .2 .4) - 分别设置字色、字重、字号、行高，字色
+ * @include font(black .2 .4 bold) - 字色可为单词，字重可使用string
+ * 小于100的数的第一个设置的是字号，第二个是行高，顺序不可逆
+ * 应用: @include font(20 black 600 30);
+ */
+@mixin font($obj) {
+  $mark: false;
+  @each $i in $obj {
+    @if (type-of($i) != 'list') {
+      @if (type-of($i) == 'color') {
+        color: $i;
+      } @else if (type_of($i) == 'string' or $i > 300) {
+        font-weight: $i;
+      } @else {
+        @if ($mark != true) {
+          font-size: $i * 1px;
+          $mark: true;
+        } @else {
+          line-height: $i * 1px;
+        }
+      }
+    } @else {
+      font-size: nth($i, 1);
+      line-height: nth($i, 2);
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@import "./mixin";
+page{
+  background-color: #fff;
+}
+.dst-login-body{
+  background: $background-color1;
+}
+
+.ellipsis {
+  @include ellipsis();
+}
+
+.multi-ellipsis--l2 {
+  @include multi-ellipsis(2);
+}
+
+.multi-ellipsis--l3 {
+  @include multi-ellipsis(3);
+}
+
+/* 水平垂直居中[父元素需设置：position:relative] */
+.trans-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dis-flex {
+  display: flex;
+}
